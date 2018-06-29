@@ -1,0 +1,6 @@
+Pregled
+ZoomIn
+ZoomOut
+CrtanjeStanja
+BiranjePrvogStanja
+BiranjeDrugogStanja
