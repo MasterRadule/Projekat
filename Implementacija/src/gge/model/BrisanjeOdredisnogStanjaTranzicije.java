@@ -12,32 +12,27 @@ public class BrisanjeOdredisnogStanjaTranzicije extends StanjeAplikacije {
 
 	@Override
 	public void minusButtonPressedEvent() {
-		// TODO Auto-generated method stub
-
+		return;
 	}
 
 	@Override
 	public void minusButtonReleasedEvent() {
-		// TODO Auto-generated method stub
-
+		return;
 	}
 
 	@Override
 	public void plusButtonPressedEvent() {
-		// TODO Auto-generated method stub
-
+		return;
 	}
 
 	@Override
 	public void plusButtonReleasedEvent() {
-		// TODO Auto-generated method stub
-
+		return;
 	}
 
 	@Override
 	public void entry() {
-		// TODO Auto-generated method stub
-
+		return;
 	}
 
 }

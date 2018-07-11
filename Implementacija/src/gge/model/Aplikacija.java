@@ -73,7 +73,8 @@ public class Aplikacija {
 	}
 
 	public void promeniStanje(StanjeAplikacije novoStanje) {
-
+		this.currentState = novoStanje;
+		novoStanje.entry();
 	}
 
 }

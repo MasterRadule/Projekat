@@ -3,41 +3,36 @@ package gge.model;
 import java.awt.event.MouseEvent;
 
 public class ZoomOut extends StanjeAplikacije {
+	private final int ZOOM_FACTOR = 5;
 
 	@Override
 	public void mouseEvent(MouseEvent e) {
-		// TODO Auto-generated method stub
-
+		return;
 	}
 
 	@Override
 	public void minusButtonPressedEvent() {
-		// TODO Auto-generated method stub
-
+		this.aplikacija.promeniStanje(new ZoomOut());
 	}
 
 	@Override
 	public void minusButtonReleasedEvent() {
-		// TODO Auto-generated method stub
-
+		this.aplikacija.promeniStanje(new Pregled());
 	}
 
 	@Override
 	public void plusButtonPressedEvent() {
-		// TODO Auto-generated method stub
-
+		return;
 	}
 
 	@Override
 	public void plusButtonReleasedEvent() {
-		// TODO Auto-generated method stub
-
+		return;
 	}
 
 	@Override
 	public void entry() {
-		// TODO Auto-generated method stub
-
+		this.aplikacija.izmeniZoomFactor(-this.ZOOM_FACTOR);
 	}
 
 }

@@ -12,32 +12,27 @@ public class Pregled extends StanjeAplikacije {
 
 	@Override
 	public void minusButtonPressedEvent() {
-		// TODO Auto-generated method stub
-
+		this.aplikacija.promeniStanje(new ZoomOut());
 	}
 
 	@Override
 	public void minusButtonReleasedEvent() {
-		// TODO Auto-generated method stub
-
+		return;
 	}
 
 	@Override
 	public void plusButtonPressedEvent() {
-		// TODO Auto-generated method stub
-
+		this.aplikacija.promeniStanje(new ZoomIn());
 	}
 
 	@Override
 	public void plusButtonReleasedEvent() {
-		// TODO Auto-generated method stub
-
+		return;
 	}
 
 	@Override
 	public void entry() {
-		// TODO Auto-generated method stub
-
+		return;
 	}
 
 }
