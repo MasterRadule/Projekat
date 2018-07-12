@@ -1,13 +1,15 @@
-NEW - if(izmenjen) if(wantSave?()) SAVE(); else nePostojeIzmene();
+NEW - if(izmenjen) if(wantSave?()) SAVE();
 	putanjaDatoteke = getPath();
 	resetujModel();
 	snimiModel();
+	nePostojeIzmene();
 
 SAVE - if(izmenjen) {if(putanjaDatoteke == null) {putanjaDatoteke = getPath();}  snimiModel();}
 
-OPEN - if(izmenjen) if(wantSave?()) SAVE(); else nePostojeIzmene();
+OPEN - if(izmenjen) if(wantSave?()) SAVE();
 	putanjaDatoteke = getPath();
-	ucitajModel();
+	if!(ucitajModel()) return;
+	nePostojeIzmene();
 
 u snimiModel() se radi nePostojeIzmene()
 u ucitajModel() se prvo pozove resetujModel pa se ucitavaju novi objekti sa putanjaDatoteke
