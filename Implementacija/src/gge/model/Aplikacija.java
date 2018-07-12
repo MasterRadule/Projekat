@@ -1,8 +1,9 @@
 package gge.model;
 
 import java.awt.event.MouseEvent;
+import java.util.Observable;
 
-public class Aplikacija {
+public class Aplikacija extends Observable {
 
 	private static Aplikacija instance = null;
 	private int zoomFactor = 100;

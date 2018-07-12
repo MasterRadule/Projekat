@@ -15,8 +15,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
 import javax.swing.border.LineBorder;
 
-import gge.model.GGEModel;
-import gge.view.GGEView;
+import gge.model.Aplikacija;
+import gge.view.Viewer;
 
 public class MainFrame extends JFrame{
 	
@@ -24,7 +24,6 @@ public class MainFrame extends JFrame{
 	private MyMenu myMenu = new MyMenu();
 	private JTabbedPane tabbedPane;
 	private JToolBar toolBar;
-	private GGEModel model = new GGEModel();
 	
 	public MainFrame(){
 	}
@@ -45,7 +44,7 @@ public class MainFrame extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Aplikacija");
 
-		GGEView view = new GGEView(model);
+		Viewer view = new Viewer(Aplikacija.getInstance());
 		/*MyEllipse elem = new MyEllipse(new Point2D.Double(100,200), new Dimension(140,50));
 		MyEllipsePainter p = new MyEllipsePainter(elem);
 		view.addElementPainters(p);
@@ -53,8 +52,8 @@ public class MainFrame extends JFrame{
 		
 		tabbedPane = new JTabbedPane();
 		tabbedPane.addTab("Radni zahtev", view);
-		tabbedPane.addTab("Plan rada", new GGEView(MainFrame.getInstance().getModel()));
-		tabbedPane.addTab("Sigurnosni dokument", new GGEView(MainFrame.getInstance().getModel()));
+		tabbedPane.addTab("Plan rada", new Viewer(Aplikacija.getInstance()));
+		tabbedPane.addTab("Sigurnosni dokument", new Viewer(Aplikacija.getInstance()));
 		tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 		tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
 		tabbedPane.setMnemonicAt(2, KeyEvent.VK_2);
@@ -136,14 +135,6 @@ public class MainFrame extends JFrame{
 
 	public void setTabbedPane(JTabbedPane tabbedPane) {
 		this.tabbedPane = tabbedPane;
-	}
-	
-	public GGEModel getModel() {
-		return model;
-	}
-
-	public void setModel(GGEModel model) {
-		this.model = model;
 	}
 
 }

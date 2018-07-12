@@ -1,29 +1,38 @@
 package gge.view;
 
-import gge.model.*;
-
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.geom.Point2D;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JPanel;
 
+import gge.model.Aplikacija;
+import gge.model.GraphElement;
+import gge.model.MyRectangle;
+
 @SuppressWarnings("serial")
-public class GGEView extends JPanel {
-	protected GGEModel model;
+public class Viewer extends JPanel implements Observer {
+	protected Aplikacija model;
 	protected Map<GraphElement, ElementPainter> elementPainters;
 
-	public GGEView(GGEModel model) {
+	public Viewer(Aplikacija model) {
 		// TODO: implement
 		this.model = model;
 		elementPainters = new HashMap<GraphElement, ElementPainter>();
-		GGEController controler = new GGEController();
+		Controller controler = new Controller();
 		addMouseListener(controler); //view je panel, i prosledimo mu kontroler
 		
 		//metoda da se view prijavi modelu da hoce da slusa izmene
+		model.addObserver(this);
 	}
 
 	/** @param g */
@@ -34,19 +43,19 @@ public class GGEView extends JPanel {
 		for(ElementPainter painter : elementPainters.values()){
 			painter.paint(g2);
 		}
-		repaint();
+		//repaint();
 		//ovu metodu poziva sistem
 		//ako hocemo da kazemo sistemu da treba da se pozove pozovemo repaint();
 	}
 
 
-	public GGEModel getModel() {
+	public Aplikacija getModel() {
 		return model;
 	}
 
 	/** @param newGGEModel */
-	public void setModel(GGEModel newGGEModel) {
-		this.model = newGGEModel;
+	public void setModel(Aplikacija newModel) {
+		this.model = newModel;
 	}
 
 		
@@ -87,13 +96,13 @@ public class GGEView extends JPanel {
 			elementPainters.clear();
 	}
 
-	public class GGEController implements MouseListener {
+	public class Controller implements MouseListener {
 		/** @param e */
 		public void mousePressed(MouseEvent e) {
 			MyRectangle elem = new MyRectangle(new Point2D.Double(e.getX(),e.getY()), new Dimension(140,50));
 			MyRectPainter p = new MyRectPainter(elem);
 			addElementPainters(p);
-			model.addElements(elem);
+			//model.addElements(elem);
 		}
 
 		/** @param e */
@@ -119,6 +128,12 @@ public class GGEView extends JPanel {
 
 		}
 
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		// TODO Auto-generated method stub
+		repaint();
 	}
 
 }
