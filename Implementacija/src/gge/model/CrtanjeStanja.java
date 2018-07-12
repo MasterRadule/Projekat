@@ -35,4 +35,28 @@ public class CrtanjeStanja extends StanjeAplikacije {
 		return;
 	}
 
+	@Override
+	public void kliknutoNaZnakPregleda() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void kliknutoNaZnakBrisanja() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void kliknutoNaZnakCrtanjaStanja() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void kliknutoNaZnakCrtanjaTranzicije() {
+		// TODO Auto-generated method stub
+
+	}
+
 }

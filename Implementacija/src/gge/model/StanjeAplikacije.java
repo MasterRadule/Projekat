@@ -7,6 +7,14 @@ public abstract class StanjeAplikacije {
 
 	public abstract void mouseEvent(MouseEvent e);
 
+	public abstract void kliknutoNaZnakPregleda();
+
+	public abstract void kliknutoNaZnakBrisanja();
+
+	public abstract void kliknutoNaZnakCrtanjaStanja();
+
+	public abstract void kliknutoNaZnakCrtanjaTranzicije();
+
 	public abstract void minusButtonPressedEvent();
 
 	public abstract void minusButtonReleasedEvent();

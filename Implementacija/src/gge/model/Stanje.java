@@ -1,21 +1,29 @@
 package gge.model;
 
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 public class Stanje extends ElementDokumenta {
 	private String displayName;
+	private Rectangle2D pravougaonik;
+	private int tekstX;
+	private int tesktY;
+
 	private ArrayList<OsobinePolja> polja;
-	private ArrayList<StateSemantic> semantika;
+	private ArrayList<StateSemantic> semantike;
 
 	public Stanje() {
-		super();
 	}
 
-	public Stanje(String displayName, ArrayList<OsobinePolja> polja, ArrayList<StateSemantic> semantika) {
+	public Stanje(String displayName, Rectangle2D pravougaonik, int tekstX, int tesktY, ArrayList<OsobinePolja> polja,
+			ArrayList<StateSemantic> semantike) {
 		super();
 		this.displayName = displayName;
+		this.pravougaonik = pravougaonik;
+		this.tekstX = tekstX;
+		this.tesktY = tesktY;
 		this.polja = polja;
-		this.semantika = semantika;
+		this.semantike = semantike;
 	}
 
 	public String getDisplayName() {
@@ -26,6 +34,30 @@ public class Stanje extends ElementDokumenta {
 		this.displayName = displayName;
 	}
 
+	public Rectangle2D getPravougaonik() {
+		return pravougaonik;
+	}
+
+	public void setPravougaonik(Rectangle2D pravougaonik) {
+		this.pravougaonik = pravougaonik;
+	}
+
+	public int getTekstX() {
+		return tekstX;
+	}
+
+	public void setTekstX(int tekstX) {
+		this.tekstX = tekstX;
+	}
+
+	public int getTesktY() {
+		return tesktY;
+	}
+
+	public void setTesktY(int tesktY) {
+		this.tesktY = tesktY;
+	}
+
 	public ArrayList<OsobinePolja> getPolja() {
 		return polja;
 	}
@@ -34,12 +66,12 @@ public class Stanje extends ElementDokumenta {
 		this.polja = polja;
 	}
 
-	public ArrayList<StateSemantic> getSemantika() {
-		return semantika;
+	public ArrayList<StateSemantic> getSemantike() {
+		return semantike;
 	}
 
-	public void setSemantika(ArrayList<StateSemantic> semantika) {
-		this.semantika = semantika;
+	public void setSemantike(ArrayList<StateSemantic> semantike) {
+		this.semantike = semantike;
 	}
 
 }

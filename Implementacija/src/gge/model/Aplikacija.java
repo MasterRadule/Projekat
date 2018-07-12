@@ -14,6 +14,10 @@ public class Aplikacija extends Observable {
 	private Dokument planRada;
 	private Dokument sigurnosniDokument;
 
+	private String putanjaDatoteke = null;
+
+	private boolean izmenjenja = false;
+
 	private Aplikacija() {
 
 	}
@@ -25,7 +29,23 @@ public class Aplikacija extends Observable {
 		return instance;
 	}
 
-	public void mouseEvent(MouseEvent e) {
+	public void kliknutoNaZnakPregleda() {
+
+	}
+
+	public void kliknutoNaZnakBrisanja() {
+
+	}
+
+	public void kliknutoNaZnakCrtanjaStanja() {
+
+	}
+
+	public void kliknutoNaZnakCrtanjaTranzicije() {
+
+	}
+
+	public void mouseEvent(MouseEvent e, TipDokumenta dokument) {
 
 	}
 
@@ -45,11 +65,11 @@ public class Aplikacija extends Observable {
 
 	}
 
-	public void dodajNovoStanje(int x, int y) {
+	public void dodajNovoStanje(TipDokumenta dokument, int tekstX, int tekstY) {
 
 	}
 
-	public void dodajNovuTranziciju(Stanje polazno, Stanje odredisno) {
+	public void dodajNovuTranziciju(TipDokumenta dokument, Stanje polazno, Stanje odredisno) {
 
 	}
 
@@ -76,6 +96,22 @@ public class Aplikacija extends Observable {
 	public void promeniStanje(StanjeAplikacije novoStanje) {
 		this.currentState = novoStanje;
 		novoStanje.entry();
+	}
+
+	public void ucitajModel() {
+
+	}
+
+	public void snimiModel() {
+
+	}
+
+	public void postojeIzmene() {
+
+	}
+
+	public void nePostojeIzmene() {
+
 	}
 
 }
