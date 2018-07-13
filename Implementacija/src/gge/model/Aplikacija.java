@@ -19,34 +19,40 @@ public class Aplikacija extends Observable {
 	private boolean izmenjenja = false;
 
 	private Aplikacija() {
-		this.currentState = new Pregled();
 	}
 
 	public static Aplikacija getInstance() {
 		if (instance == null)
+		{
 			instance = new Aplikacija();
+			instance.currentState = new Pregled();
+		}
 
 		return instance;
 	}
 
 	public void kliknutoNaZnakPregleda() {
-		promeniStanje(new Pregled());
-		System.out.println("Pregled");
+		/*promeniStanje(new Pregled());
+		System.out.println("Pregled");*/
+		this.currentState.kliknutoNaZnakPregleda();
 	}
 
 	public void kliknutoNaZnakBrisanja() {
-		promeniStanje(new Brisanje());
-		System.out.println("Brisanje");
+		/*promeniStanje(new Brisanje());
+		System.out.println("Brisanje");*/
+		this.currentState.kliknutoNaZnakBrisanja();
 	}
 
 	public void kliknutoNaZnakCrtanjaStanja() {
-		promeniStanje(new CrtanjeStanja());
-		System.out.println("Stanje");
+		/*promeniStanje(new CrtanjeStanja());
+		System.out.println("Stanje");*/
+		this.currentState.kliknutoNaZnakCrtanjaStanja();
 	}
 
 	public void kliknutoNaZnakCrtanjaTranzicije() {
-		promeniStanje(new BiranjePolaznogStanjaTranzicije());
-		System.out.println("Tranzicija");
+		/*promeniStanje(new BiranjePolaznogStanjaTranzicije());
+		System.out.println("Tranzicija");*/
+		this.currentState.kliknutoNaZnakCrtanjaTranzicije();
 	}
 
 	public void mouseEvent(MouseEvent e, TipDokumenta dokument) {

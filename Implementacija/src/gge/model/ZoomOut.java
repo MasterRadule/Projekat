@@ -3,6 +3,11 @@ package gge.model;
 import java.awt.event.MouseEvent;
 
 public class ZoomOut extends StanjeAplikacije {
+	public ZoomOut() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	private final int ZOOM_FACTOR = 5;
 
 	@Override

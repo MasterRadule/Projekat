@@ -4,6 +4,11 @@ import java.awt.event.MouseEvent;
 
 public class BiranjePolaznogStanjaTranzicije extends StanjeAplikacije {
 
+	public BiranjePolaznogStanjaTranzicije() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public void mouseEvent(MouseEvent e) {
 		// TODO Auto-generated method stub
@@ -38,7 +43,7 @@ public class BiranjePolaznogStanjaTranzicije extends StanjeAplikacije {
 	@Override
 	public void kliknutoNaZnakPregleda() {
 		// TODO Auto-generated method stub
-
+		this.aplikacija.promeniStanje(new Pregled());
 	}
 
 	@Override
