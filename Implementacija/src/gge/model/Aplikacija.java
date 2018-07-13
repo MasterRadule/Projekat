@@ -4,6 +4,8 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Observable;
 
 public class Aplikacija extends Observable {
@@ -30,9 +32,9 @@ public class Aplikacija extends Observable {
 		if (instance == null) {
 			instance = new Aplikacija();
 			instance.currentState = new Pregled();
-			instance.accessPermit = new Dokument();
-			instance.switchOrder = new Dokument();
-			instance.switchRequest = new Dokument();
+			instance.accessPermit = new Dokument(TipDokumenta.AccessPermit);
+			instance.switchOrder = new Dokument(TipDokumenta.SwitchOrder);
+			instance.switchRequest = new Dokument(TipDokumenta.SwitchRequest);
 		}
 
 		return instance;
@@ -96,8 +98,8 @@ public class Aplikacija extends Observable {
 		novoStanje.setTekstX(tekstX);
 		novoStanje.setTesktY(tekstY);
 
-		Rectangle2D pravougaonik = new Rectangle2D.Double(tekstX - 10, tekstY - 10, 200, 150);
-		novoStanje.setPravougaonik(pravougaonik);
+		//Rectangle2D pravougaonik = new Rectangle2D.Double(tekstX - 10, tekstY - 10, 200, 150);
+		//novoStanje.setPravougaonik(pravougaonik);
 
 		switch (dokument) {
 		case AccessPermit:
@@ -128,14 +130,18 @@ public class Aplikacija extends Observable {
 		double x1 = polazno.getPravougaonik().getX();
 		double y1 = polazno.getPravougaonik().getY();
 
-		double x2 = odredisno.getPravougaonik().getX();
+		double x2 = odredisno.getPravougaonik().getX() + odredisno.getPravougaonik().getWidth();
 		double y2 = odredisno.getPravougaonik().getY();
 
 		linija.setLine(x1, y1, x2, y2);
-
+		linija.getBounds().height = 5;
 		novaTranzicija.setLinija(linija);
 
-		Ellipse2D krug = new Ellipse2D.Double(x2, y2, 25, 25);
+		novaTranzicija.setPolaznoStanje(polazno);
+		novaTranzicija.setOdredisnoStanje(odredisno);
+		
+		Ellipse2D.Double krug = new Ellipse2D.Double(x2, y2, 25, 25);
+		
 
 		novaTranzicija.setKrug(krug);
 
@@ -157,12 +163,81 @@ public class Aplikacija extends Observable {
 		notifyObservers();
 	}
 
-	public void obrisiStanje(Stanje stanje) {
+	public void obrisiStanje(Stanje stanje, TipDokumenta dokument) {
+		Dokument noviDokument = null;
+
+		switch (dokument) {
+		case AccessPermit:
+			noviDokument = this.getAccessPermit();
+			break;
+		case SwitchOrder:
+			noviDokument = this.getSwitchOrder();
+			break;
+		case SwitchRequest:
+			noviDokument = this.getSwitchRequest();
+			break;
+		}
+		
+		
+		Iterator it = noviDokument.getElementiDokumenta().entrySet().iterator();
+		while(it.hasNext())
+		{
+			Map.Entry pair = (Map.Entry) it.next();
+			if (noviDokument.getElementiDokumenta().get(pair.getKey()) instanceof Tranzicija)
+			{
+				if (((Tranzicija) noviDokument.getElementiDokumenta().get(pair.getKey())).getPolaznoStanje() == stanje
+						|| ((Tranzicija) noviDokument.getElementiDokumenta().get(pair.getKey())).getOdredisnoStanje() == stanje)
+				{
+					it.remove();
+				}
+			}
+		}
+		
+		
+		
+		for (Object value : noviDokument.getElementiDokumenta().keySet())
+		{
+			if (noviDokument.getElementiDokumenta().get(value) instanceof Stanje)
+			{
+				if (((Stanje) noviDokument.getElementiDokumenta().get(value)) == stanje)
+				{
+					noviDokument.getElementiDokumenta().remove(value);
+					break;
+				}
+			}
+		}
+		
 		setChanged();
 		notifyObservers();
 	}
 
-	public void obrisiTranziciju(Tranzicija tranzicija) {
+	public void obrisiTranziciju(Tranzicija tranzicija, TipDokumenta dokument) {
+		Dokument noviDokument = null;
+
+		switch (dokument) {
+		case AccessPermit:
+			noviDokument = this.getAccessPermit();
+			break;
+		case SwitchOrder:
+			noviDokument = this.getSwitchOrder();
+			break;
+		case SwitchRequest:
+			noviDokument = this.getSwitchRequest();
+			break;
+		}
+		
+		for (Object value : noviDokument.getElementiDokumenta().keySet())
+		{
+			if (noviDokument.getElementiDokumenta().get(value) instanceof Tranzicija)
+			{
+				if (((Tranzicija) noviDokument.getElementiDokumenta().get(value)) == tranzicija)
+				{
+					noviDokument.getElementiDokumenta().remove(value);
+					break;
+				}
+			}
+		}
+		
 		setChanged();
 		notifyObservers();
 	}

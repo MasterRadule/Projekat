@@ -1,9 +1,17 @@
 package gge.view;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Shape;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.font.FontRenderContext;
+import java.awt.font.LineMetrics;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -16,6 +24,7 @@ import javax.swing.JPanel;
 import gge.model.Aplikacija;
 import gge.model.Dokument;
 import gge.model.GraphElement;
+import gge.model.MyRectangle;
 import gge.model.Stanje;
 import gge.model.TipDokumenta;
 import gge.model.Tranzicija;
@@ -60,57 +69,54 @@ public class Viewer extends JPanel implements Observer {
 			break;
 		}
 
-		/*
-		 * int w = this.getWidth(); int h = this.getHeight();
-		 * 
-		 * Font font = g2.getFont().deriveFont(16f); g2.setFont(font);
-		 * 
-		 * FontRenderContext frc = g2.getFontRenderContext();
-		 * 
-		 * int textWidth; int textHeight; LineMetrics lm;
-		 * 
-		 * int rectX; int rectY;
-		 * 
-		 * int rectW; int rectH;
-		 */
+		
+		  int w = this.getWidth(); int h = this.getHeight();
+		  
+		  Font font = g2.getFont().deriveFont(16f); g2.setFont(font);
+		  
+		  FontRenderContext frc = g2.getFontRenderContext();
+		  
+		  int textWidth; int textHeight; LineMetrics lm;
+		  
+		  int rectX; int rectY;
+		  
+		  int rectW; int rectH;
+		 
 		for (Object value : noviDokument.getElementiDokumenta().values()) {
-			if (value instanceof Stanje) {
-				g2.draw(((Stanje) value).getPravougaonik());
-			} else {
+			if (value instanceof Tranzicija)
+			{
+				g2.setColor(Color.RED);
 				g2.draw(((Tranzicija) value).getLinija());
-				g2.draw(((Tranzicija) value).getKrug());
+				g2.drawOval( (int) (((Tranzicija) value).getLinija().getX2() - 12.5), 
+						(int) (((Tranzicija) value).getLinija().getY2() - 12.5), 25, 25);
 			}
 		}
-		/*
-		 * if (value instanceof Stanje && ((Stanje) value).getPravougaonik() ==
-		 * null) { textWidth = (int) font.getStringBounds(((Stanje)
-		 * value).getDisplayName(), frc).getWidth(); lm =
-		 * font.getLineMetrics(((Stanje) value).getDisplayName(), frc);
-		 * textHeight = (int) (lm.getAscent() + lm.getDescent());
-		 * 
-		 * rectX = ((Stanje) value).getTekstX() - 10; rectY = ((Stanje)
-		 * value).getTesktY() - 10;
-		 * 
-		 * rectW = textWidth + 10; rectH = textHeight + 10;
-		 * 
-		 * MyRectangle elem = new MyRectangle(new Point2D.Double(rectX, rectY),
-		 * new Dimension(rectW, rectH));
-		 * 
-		 * MyRectPainter p = new MyRectPainter(elem); p.paint(g2);
-		 * g.drawString(((Stanje) value).getDisplayName(), ((Stanje)
-		 * value).getTekstX(), ((Stanje) value).getTesktY());
-		 * 
-		 * ((Stanje) value).setPravougaonik((Rectangle2D) p.shape); } }
-		 */
-
-		/*
-		for (ElementPainter painter : elementPainters.values()) {
-			painter.paint(g2);
-		}*/
-		// repaint();
-		// ovu metodu poziva sistem
-		// ako hocemo da kazemo sistemu da treba da se pozove pozovemo
-		// repaint();
+		
+		for (Object value : noviDokument.getElementiDokumenta().values()) {
+			if (value instanceof Stanje) { 
+				textWidth = (int) font.getStringBounds(((Stanje) value).getDisplayName(), frc).getWidth(); lm =
+				font.getLineMetrics(((Stanje) value).getDisplayName(), frc);
+				textHeight = (int) (lm.getAscent() + lm.getDescent());
+				 
+				rectX = ((Stanje) value).getTekstX() - 5; 
+				rectY = ((Stanje) value).getTesktY() - textHeight;
+				rectW = textWidth + 50; 
+				rectH = textHeight * 2;
+				 
+				MyRectangle elem = new MyRectangle(new Point2D.Double(rectX, rectY), new Dimension(rectW, rectH));
+				
+				MyRectPainter p = new MyRectPainter(elem);
+				
+				p.paint(g2);
+				addElementPainters(p);
+				
+				((Stanje) value).setPravougaonik((Rectangle2D) p.shape);
+				g2.setColor(Color.BLUE);
+				g2.fill(p.shape);
+				g2.setColor(Color.RED);
+				g2.drawString(((Stanje) value).getDisplayName(), ((Stanje) value).getTekstX(), ((Stanje) value).getTesktY());
+			}
+		}
 	}
 
 	public Aplikacija getModel() {

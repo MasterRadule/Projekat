@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Stanje extends ElementDokumenta {
 	private String displayName;
-	private Rectangle2D pravougaonik = null;
+	private Rectangle2D pravougaonik;
 	private int tekstX;
 	private int tesktY;
 
@@ -15,6 +15,7 @@ public class Stanje extends ElementDokumenta {
 	public Stanje() {
 		this.polja = new ArrayList<OsobinePolja>();
 		this.semantike = new ArrayList<StateSemantic>();
+		this.pravougaonik = null;
 	}
 
 	public Stanje(String displayName, int tekstX, int tesktY, ArrayList<OsobinePolja> polja,
