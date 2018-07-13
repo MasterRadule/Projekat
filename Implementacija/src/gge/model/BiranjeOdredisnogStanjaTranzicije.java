@@ -32,6 +32,8 @@ public class BiranjeOdredisnogStanjaTranzicije extends StanjeAplikacije {
 		Stanje odredisnoStanje = null;
 		Boolean nadjeno = false;
 		
+		if(polaznoStanje.getDokument() != noviDokument) return;
+		
 		for (Object value : noviDokument.getElementiDokumenta().values())
 		{
 			if (value instanceof Stanje && ((Stanje) value).getPravougaonik().contains(e.getPoint()))
@@ -77,7 +79,7 @@ public class BiranjeOdredisnogStanjaTranzicije extends StanjeAplikacije {
 	@Override
 	public void kliknutoNaZnakPregleda() {
 		// TODO Auto-generated method stub
-
+		this.aplikacija.promeniStanje(new Pregled());
 	}
 
 	@Override

@@ -103,12 +103,15 @@ public class Aplikacija extends Observable {
 
 		switch (dokument) {
 		case AccessPermit:
+			novoStanje.setDokument(this.accessPermit);
 			this.accessPermit.getElementiDokumenta().put(Integer.parseInt(novoStanje.getEntityID()), novoStanje);
 			break;
 		case SwitchOrder:
+			novoStanje.setDokument(this.switchOrder);
 			this.switchOrder.getElementiDokumenta().put(Integer.parseInt(novoStanje.getEntityID()), novoStanje);
 			break;
 		case SwitchRequest:
+			novoStanje.setDokument(this.switchRequest);
 			this.switchRequest.getElementiDokumenta().put(Integer.parseInt(novoStanje.getEntityID()), novoStanje);
 			break;
 		}
