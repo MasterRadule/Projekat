@@ -10,7 +10,7 @@ public abstract class StanjeAplikacije {
 		this.aplikacija = Aplikacija.getInstance();
 	}
 
-	public abstract void mouseEvent(MouseEvent e);
+	public abstract void mouseEvent(MouseEvent e, TipDokumenta dokument);
 
 	public abstract void kliknutoNaZnakPregleda();
 

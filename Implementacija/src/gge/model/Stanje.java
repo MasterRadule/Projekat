@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Stanje extends ElementDokumenta {
 	private String displayName;
-	private Rectangle2D pravougaonik;
+	private Rectangle2D pravougaonik = null;
 	private int tekstX;
 	private int tesktY;
 
@@ -13,13 +13,15 @@ public class Stanje extends ElementDokumenta {
 	private ArrayList<StateSemantic> semantike;
 
 	public Stanje() {
+		this.polja = new ArrayList<OsobinePolja>();
+		this.semantike = new ArrayList<StateSemantic>();
 	}
 
-	public Stanje(String displayName, Rectangle2D pravougaonik, int tekstX, int tesktY, ArrayList<OsobinePolja> polja,
+	public Stanje(String displayName, int tekstX, int tesktY, ArrayList<OsobinePolja> polja,
 			ArrayList<StateSemantic> semantike) {
 		super();
 		this.displayName = displayName;
-		this.pravougaonik = pravougaonik;
+		this.pravougaonik = null;
 		this.tekstX = tekstX;
 		this.tesktY = tesktY;
 		this.polja = polja;

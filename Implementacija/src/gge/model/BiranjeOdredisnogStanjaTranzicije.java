@@ -10,7 +10,7 @@ public class BiranjeOdredisnogStanjaTranzicije extends StanjeAplikacije {
 	}
 
 	@Override
-	public void mouseEvent(MouseEvent e) {
+	public void mouseEvent(MouseEvent e, TipDokumenta dokument) {
 		// TODO Auto-generated method stub
 
 	}

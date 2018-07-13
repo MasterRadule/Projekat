@@ -11,7 +11,7 @@ public class ZoomOut extends StanjeAplikacije {
 	private final int ZOOM_FACTOR = 5;
 
 	@Override
-	public void mouseEvent(MouseEvent e) {
+	public void mouseEvent(MouseEvent e, TipDokumenta dokument) {
 		return;
 	}
 

@@ -1,11 +1,9 @@
 package gge.view;
 
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.geom.Point2D;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -16,10 +14,11 @@ import java.util.Observer;
 import javax.swing.JPanel;
 
 import gge.model.Aplikacija;
-import gge.model.CrtanjeStanja;
+import gge.model.Dokument;
 import gge.model.GraphElement;
-import gge.model.MyRectangle;
+import gge.model.Stanje;
 import gge.model.TipDokumenta;
+import gge.model.Tranzicija;
 
 @SuppressWarnings("serial")
 public class Viewer extends JPanel implements Observer {
@@ -33,40 +32,103 @@ public class Viewer extends JPanel implements Observer {
 		this.model = model;
 		elementPainters = new HashMap<GraphElement, ElementPainter>();
 		Controller controler = new Controller();
-		addMouseListener(controler); //view je panel, i prosledimo mu kontroler
-		
-		//metoda da se view prijavi modelu da hoce da slusa izmene
+		addMouseListener(controler); // view je panel, i prosledimo mu kontroler
+
+		// metoda da se view prijavi modelu da hoce da slusa izmene
 		model.addObserver(this);
 	}
 
-	/** @param g */
+	/**
+	 * @param g
+	 */
 	protected void paintComponent(Graphics g) {
 		// TODO: implement
 		super.paintComponent(g);
-		Graphics2D g2 = (Graphics2D)g;
-		for(ElementPainter painter : elementPainters.values()){
-			painter.paint(g2);
-		}
-		//repaint();
-		//ovu metodu poziva sistem
-		//ako hocemo da kazemo sistemu da treba da se pozove pozovemo repaint();
-	}
+		Graphics2D g2 = (Graphics2D) g;
 
+		Dokument noviDokument = null;
+
+		switch (this.dokument) {
+		case AccessPermit:
+			noviDokument = this.model.getAccessPermit();
+			break;
+		case SwitchOrder:
+			noviDokument = this.model.getSwitchOrder();
+			break;
+		case SwitchRequest:
+			noviDokument = this.model.getSwitchRequest();
+			break;
+		}
+
+		/*
+		 * int w = this.getWidth(); int h = this.getHeight();
+		 * 
+		 * Font font = g2.getFont().deriveFont(16f); g2.setFont(font);
+		 * 
+		 * FontRenderContext frc = g2.getFontRenderContext();
+		 * 
+		 * int textWidth; int textHeight; LineMetrics lm;
+		 * 
+		 * int rectX; int rectY;
+		 * 
+		 * int rectW; int rectH;
+		 */
+		for (Object value : noviDokument.getElementiDokumenta().values()) {
+			if (value instanceof Stanje) {
+				g2.draw(((Stanje) value).getPravougaonik());
+			} else {
+				g2.draw(((Tranzicija) value).getLinija());
+				g2.draw(((Tranzicija) value).getKrug());
+			}
+		}
+		/*
+		 * if (value instanceof Stanje && ((Stanje) value).getPravougaonik() ==
+		 * null) { textWidth = (int) font.getStringBounds(((Stanje)
+		 * value).getDisplayName(), frc).getWidth(); lm =
+		 * font.getLineMetrics(((Stanje) value).getDisplayName(), frc);
+		 * textHeight = (int) (lm.getAscent() + lm.getDescent());
+		 * 
+		 * rectX = ((Stanje) value).getTekstX() - 10; rectY = ((Stanje)
+		 * value).getTesktY() - 10;
+		 * 
+		 * rectW = textWidth + 10; rectH = textHeight + 10;
+		 * 
+		 * MyRectangle elem = new MyRectangle(new Point2D.Double(rectX, rectY),
+		 * new Dimension(rectW, rectH));
+		 * 
+		 * MyRectPainter p = new MyRectPainter(elem); p.paint(g2);
+		 * g.drawString(((Stanje) value).getDisplayName(), ((Stanje)
+		 * value).getTekstX(), ((Stanje) value).getTesktY());
+		 * 
+		 * ((Stanje) value).setPravougaonik((Rectangle2D) p.shape); } }
+		 */
+
+		/*
+		for (ElementPainter painter : elementPainters.values()) {
+			painter.paint(g2);
+		}*/
+		// repaint();
+		// ovu metodu poziva sistem
+		// ako hocemo da kazemo sistemu da treba da se pozove pozovemo
+		// repaint();
+	}
 
 	public Aplikacija getModel() {
 		return model;
 	}
 
-	/** @param newGGEModel */
+	/**
+	 * @param newGGEModel
+	 */
 	public void setModel(Aplikacija newModel) {
 		this.model = newModel;
 	}
 
-		
-	public List<ElementPainter> getElementPainters() {   // obrisati ovu metodu!
-		/*if (elementPainters == null)
-			elementPainters = new ArrayList<ElementPainter>();
-		return elementPainters;*/
+	public List<ElementPainter> getElementPainters() { // obrisati ovu metodu!
+		/*
+		 * if (elementPainters == null) elementPainters = new
+		 * ArrayList<ElementPainter>(); return elementPainters;
+		 */
 		return null;
 	}
 
@@ -76,7 +138,9 @@ public class Viewer extends JPanel implements Observer {
 		return elementPainters.values().iterator();
 	}
 
-	/** @param newElementPainter */
+	/**
+	 * @param newElementPainter
+	 */
 	public void addElementPainters(ElementPainter newElementPainter) {
 		if (newElementPainter == null)
 			return;
@@ -86,7 +150,9 @@ public class Viewer extends JPanel implements Observer {
 			this.elementPainters.put(newElementPainter.getElement(), newElementPainter);
 	}
 
-	/** @param oldElementPainter */
+	/**
+	 * @param oldElementPainter
+	 */
 	public void removeElementPainters(ElementPainter oldElementPainter) {
 		if (oldElementPainter == null)
 			return;
@@ -102,10 +168,12 @@ public class Viewer extends JPanel implements Observer {
 
 	public class Controller implements MouseListener {
 		public void mousePressed(MouseEvent e) {
-				/*MyRectangle elem = new MyRectangle(new Point2D.Double(e.getX(),e.getY()), new Dimension(140,50));
-				MyRectPainter p = new MyRectPainter(elem);
-				addElementPainters(p);
-				//model.addElements(elem);*/
+			/*
+			 * MyRectangle elem = new MyRectangle(new
+			 * Point2D.Double(e.getX(),e.getY()), new Dimension(140,50));
+			 * MyRectPainter p = new MyRectPainter(elem); addElementPainters(p);
+			 * //model.addElements(elem);
+			 */
 			Aplikacija.getInstance().mouseEvent(e, dokument);
 		}
 
@@ -146,6 +214,5 @@ public class Viewer extends JPanel implements Observer {
 	public void setDokument(TipDokumenta dokument) {
 		this.dokument = dokument;
 	}
-	
-	
+
 }

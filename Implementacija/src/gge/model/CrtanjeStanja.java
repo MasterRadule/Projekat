@@ -10,9 +10,9 @@ public class CrtanjeStanja extends StanjeAplikacije {
 	}
 
 	@Override
-	public void mouseEvent(MouseEvent e) {
-		// TODO Auto-generated method stub
-
+	public void mouseEvent(MouseEvent e, TipDokumenta dokument) {
+		this.aplikacija.dodajNovoStanje(dokument, e.getX(), e.getY());
+		this.aplikacija.promeniStanje(new CrtanjeStanja());
 	}
 
 	@Override
