@@ -2,7 +2,7 @@ package gge.model;
 
 import java.awt.event.MouseEvent;
 
-public class BrisanjePolaznogStanjaTranzicije extends StanjeAplikacije {
+public class BiranjePolaznogStanjaTranzicije extends StanjeAplikacije {
 
 	@Override
 	public void mouseEvent(MouseEvent e) {

@@ -16,16 +16,20 @@ import java.util.Observer;
 import javax.swing.JPanel;
 
 import gge.model.Aplikacija;
+import gge.model.CrtanjeStanja;
 import gge.model.GraphElement;
 import gge.model.MyRectangle;
+import gge.model.TipDokumenta;
 
 @SuppressWarnings("serial")
 public class Viewer extends JPanel implements Observer {
 	protected Aplikacija model;
+	protected TipDokumenta dokument;
 	protected Map<GraphElement, ElementPainter> elementPainters;
 
-	public Viewer(Aplikacija model) {
+	public Viewer(Aplikacija model, TipDokumenta dok) {
 		// TODO: implement
+		this.dokument = dok;
 		this.model = model;
 		elementPainters = new HashMap<GraphElement, ElementPainter>();
 		Controller controler = new Controller();
@@ -97,15 +101,14 @@ public class Viewer extends JPanel implements Observer {
 	}
 
 	public class Controller implements MouseListener {
-		/** @param e */
 		public void mousePressed(MouseEvent e) {
-			MyRectangle elem = new MyRectangle(new Point2D.Double(e.getX(),e.getY()), new Dimension(140,50));
-			MyRectPainter p = new MyRectPainter(elem);
-			addElementPainters(p);
-			//model.addElements(elem);
+				/*MyRectangle elem = new MyRectangle(new Point2D.Double(e.getX(),e.getY()), new Dimension(140,50));
+				MyRectPainter p = new MyRectPainter(elem);
+				addElementPainters(p);
+				//model.addElements(elem);*/
+			Aplikacija.getInstance().mouseEvent(e, dokument);
 		}
 
-		/** @param e */
 		public void mouseReleased(MouseEvent e) {
 			// TODO: implement
 		}
@@ -136,4 +139,13 @@ public class Viewer extends JPanel implements Observer {
 		repaint();
 	}
 
+	public TipDokumenta getDokument() {
+		return dokument;
+	}
+
+	public void setDokument(TipDokumenta dokument) {
+		this.dokument = dokument;
+	}
+	
+	
 }

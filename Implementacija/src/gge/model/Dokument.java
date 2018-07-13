@@ -7,7 +7,7 @@ public class Dokument {
 	private HashMap<Integer, ElementDokumenta> elementiDokumenta;
 	private ArrayList<Polje> polja;
 	private ArrayList<StateSemantic> semantika;
-	private TipDokumenta tip;
+	/*private TipDokumenta tip;
 
 	public Dokument() {
 	}
@@ -19,6 +19,6 @@ public class Dokument {
 		this.polja = polja;
 		this.semantika = semantika;
 		this.tip = tip;
-	}
+	}*/
 
 }
