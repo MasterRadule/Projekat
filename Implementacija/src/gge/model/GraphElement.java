@@ -6,7 +6,7 @@ import java.awt.geom.Point2D;
 public class GraphElement {
 	protected Point2D position;
 	protected Dimension2D size;
-	
+
 	public GraphElement(Point2D newPosition, Dimension2D newSize) {
 		position = newPosition;
 		size = newSize;
@@ -16,7 +16,9 @@ public class GraphElement {
 		return position;
 	}
 
-	/** @param newPosition */
+	/**
+	 * @param newPosition
+	 */
 	public void setPosition(Point2D newPosition) {
 		position = newPosition;
 	}
@@ -25,7 +27,9 @@ public class GraphElement {
 		return size;
 	}
 
-	/** @param newSize */
+	/**
+	 * @param newSize
+	 */
 	public void setSize(Dimension2D newSize) {
 		size = newSize;
 	}

@@ -5,14 +5,12 @@ import java.awt.event.MouseEvent;
 public class ZoomOut extends StanjeAplikacije {
 	public ZoomOut() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	private final int ZOOM_FACTOR = 5;
 
 	@Override
 	public void mouseEvent(MouseEvent e, TipDokumenta dokument) {
-		return;
 	}
 
 	@Override
@@ -27,12 +25,10 @@ public class ZoomOut extends StanjeAplikacije {
 
 	@Override
 	public void plusButtonPressedEvent() {
-		return;
 	}
 
 	@Override
 	public void plusButtonReleasedEvent() {
-		return;
 	}
 
 	@Override
@@ -42,26 +38,18 @@ public class ZoomOut extends StanjeAplikacije {
 
 	@Override
 	public void kliknutoNaZnakPregleda() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void kliknutoNaZnakBrisanja() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void kliknutoNaZnakCrtanjaStanja() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void kliknutoNaZnakCrtanjaTranzicije() {
-		// TODO Auto-generated method stub
-
 	}
 
 }

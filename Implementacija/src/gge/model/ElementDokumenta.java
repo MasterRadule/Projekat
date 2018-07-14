@@ -38,4 +38,21 @@ public abstract class ElementDokumenta {
 		this.dokument = dokument;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ElementDokumenta other = (ElementDokumenta) obj;
+		if (entityID == null) {
+			if (other.entityID != null)
+				return false;
+		} else if (!entityID.equals(other.entityID))
+			return false;
+		return true;
+	}
+
 }

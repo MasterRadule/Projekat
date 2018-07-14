@@ -4,7 +4,7 @@ import java.awt.event.MouseEvent;
 
 public abstract class StanjeAplikacije {
 	public Aplikacija aplikacija;
-	
+
 	public StanjeAplikacije() {
 		super();
 		this.aplikacija = Aplikacija.getInstance();

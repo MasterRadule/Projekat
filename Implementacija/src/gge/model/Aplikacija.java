@@ -41,31 +41,18 @@ public class Aplikacija extends Observable {
 	}
 
 	public void kliknutoNaZnakPregleda() {
-		/*
-		 * promeniStanje(new Pregled()); System.out.println("Pregled");
-		 */
 		this.currentState.kliknutoNaZnakPregleda();
 	}
 
 	public void kliknutoNaZnakBrisanja() {
-		/*
-		 * promeniStanje(new Brisanje()); System.out.println("Brisanje");
-		 */
 		this.currentState.kliknutoNaZnakBrisanja();
 	}
 
 	public void kliknutoNaZnakCrtanjaStanja() {
-		/*
-		 * promeniStanje(new CrtanjeStanja()); System.out.println("Stanje");
-		 */
 		this.currentState.kliknutoNaZnakCrtanjaStanja();
 	}
 
 	public void kliknutoNaZnakCrtanjaTranzicije() {
-		/*
-		 * promeniStanje(new BiranjePolaznogStanjaTranzicije());
-		 * System.out.println("Tranzicija");
-		 */
 		this.currentState.kliknutoNaZnakCrtanjaTranzicije();
 	}
 
@@ -74,19 +61,15 @@ public class Aplikacija extends Observable {
 	}
 
 	public void minusButtonPressedEvent() {
-
 	}
 
 	public void minusButtonReleasedEvent() {
-
 	}
 
 	public void plusButtonPressedEvent() {
-
 	}
 
 	public void plusButtonReleasedEvent() {
-
 	}
 
 	public void dodajNovoStanje(TipDokumenta dokument, int tekstX, int tekstY) {
@@ -97,9 +80,6 @@ public class Aplikacija extends Observable {
 
 		novoStanje.setTekstX(tekstX);
 		novoStanje.setTesktY(tekstY);
-
-		//Rectangle2D pravougaonik = new Rectangle2D.Double(tekstX - 10, tekstY - 10, 200, 150);
-		//novoStanje.setPravougaonik(pravougaonik);
 
 		switch (dokument) {
 		case AccessPermit:
@@ -142,9 +122,8 @@ public class Aplikacija extends Observable {
 
 		novaTranzicija.setPolaznoStanje(polazno);
 		novaTranzicija.setOdredisnoStanje(odredisno);
-		
+
 		Ellipse2D.Double krug = new Ellipse2D.Double(x2, y2, 25, 25);
-		
 
 		novaTranzicija.setKrug(krug);
 
@@ -180,36 +159,28 @@ public class Aplikacija extends Observable {
 			noviDokument = this.getSwitchRequest();
 			break;
 		}
-		
-		
+
 		Iterator it = noviDokument.getElementiDokumenta().entrySet().iterator();
-		while(it.hasNext())
-		{
+		while (it.hasNext()) {
 			Map.Entry pair = (Map.Entry) it.next();
-			if (noviDokument.getElementiDokumenta().get(pair.getKey()) instanceof Tranzicija)
-			{
+			if (noviDokument.getElementiDokumenta().get(pair.getKey()) instanceof Tranzicija) {
 				if (((Tranzicija) noviDokument.getElementiDokumenta().get(pair.getKey())).getPolaznoStanje() == stanje
-						|| ((Tranzicija) noviDokument.getElementiDokumenta().get(pair.getKey())).getOdredisnoStanje() == stanje)
-				{
+						|| ((Tranzicija) noviDokument.getElementiDokumenta().get(pair.getKey()))
+								.getOdredisnoStanje() == stanje) {
 					it.remove();
 				}
 			}
 		}
-		
-		
-		
-		for (Object value : noviDokument.getElementiDokumenta().keySet())
-		{
-			if (noviDokument.getElementiDokumenta().get(value) instanceof Stanje)
-			{
-				if (((Stanje) noviDokument.getElementiDokumenta().get(value)) == stanje)
-				{
+
+		for (Object value : noviDokument.getElementiDokumenta().keySet()) {
+			if (noviDokument.getElementiDokumenta().get(value) instanceof Stanje) {
+				if (((Stanje) noviDokument.getElementiDokumenta().get(value)) == stanje) {
 					noviDokument.getElementiDokumenta().remove(value);
 					break;
 				}
 			}
 		}
-		
+
 		setChanged();
 		notifyObservers();
 	}
@@ -228,29 +199,24 @@ public class Aplikacija extends Observable {
 			noviDokument = this.getSwitchRequest();
 			break;
 		}
-		
-		for (Object value : noviDokument.getElementiDokumenta().keySet())
-		{
-			if (noviDokument.getElementiDokumenta().get(value) instanceof Tranzicija)
-			{
-				if (((Tranzicija) noviDokument.getElementiDokumenta().get(value)) == tranzicija)
-				{
+
+		for (Object value : noviDokument.getElementiDokumenta().keySet()) {
+			if (noviDokument.getElementiDokumenta().get(value) instanceof Tranzicija) {
+				if (((Tranzicija) noviDokument.getElementiDokumenta().get(value)) == tranzicija) {
 					noviDokument.getElementiDokumenta().remove(value);
 					break;
 				}
 			}
 		}
-		
+
 		setChanged();
 		notifyObservers();
 	}
 
 	public void otvoriProzorZaIzmenuStanja() {
-
 	}
 
 	public void otvoriProzorZaIzmenuTranzicije() {
-
 	}
 
 	public void izmeniZoomFactor(int zaKoliko) {
@@ -263,19 +229,15 @@ public class Aplikacija extends Observable {
 	}
 
 	public void ucitajModel() {
-
 	}
 
 	public void snimiModel() {
-
 	}
 
 	public void postojeIzmene() {
-
 	}
 
 	public void nePostojeIzmene() {
-
 	}
 
 	public StanjeAplikacije getCurrentState() {

@@ -69,52 +69,62 @@ public class Viewer extends JPanel implements Observer {
 			break;
 		}
 
-		
-		  int w = this.getWidth(); int h = this.getHeight();
-		  
-		  Font font = g2.getFont().deriveFont(16f); g2.setFont(font);
-		  
-		  FontRenderContext frc = g2.getFontRenderContext();
-		  
-		  int textWidth; int textHeight; LineMetrics lm;
-		  
-		  int rectX; int rectY;
-		  
-		  int rectW; int rectH;
-		 
+		int w = this.getWidth();
+		int h = this.getHeight();
+
+		Font font = g2.getFont().deriveFont(16f);
+		g2.setFont(font);
+
+		FontRenderContext frc = g2.getFontRenderContext();
+
+		int textWidth;
+		int textHeight;
+		LineMetrics lm;
+
+		int rectX;
+		int rectY;
+
+		int rectW;
+		int rectH;
+
 		for (Object value : noviDokument.getElementiDokumenta().values()) {
-			if (value instanceof Tranzicija)
-			{
-				g2.setColor(Color.RED);
+			if (value instanceof Tranzicija) {
+				if (((Tranzicija) value).getPolaznoStanje().equals(((Tranzicija) value).getOdredisnoStanje())) {
+					g2.setColor(Color.GREEN);
+				} else {
+					g2.setColor(Color.RED);
+
+				}
 				g2.draw(((Tranzicija) value).getLinija());
-				g2.drawOval( (int) (((Tranzicija) value).getLinija().getX2() - 12.5), 
+				g2.drawOval((int) (((Tranzicija) value).getLinija().getX2() - 12.5),
 						(int) (((Tranzicija) value).getLinija().getY2() - 12.5), 25, 25);
 			}
 		}
-		
+
 		for (Object value : noviDokument.getElementiDokumenta().values()) {
-			if (value instanceof Stanje) { 
-				textWidth = (int) font.getStringBounds(((Stanje) value).getDisplayName(), frc).getWidth(); lm =
-				font.getLineMetrics(((Stanje) value).getDisplayName(), frc);
+			if (value instanceof Stanje) {
+				textWidth = (int) font.getStringBounds(((Stanje) value).getDisplayName(), frc).getWidth();
+				lm = font.getLineMetrics(((Stanje) value).getDisplayName(), frc);
 				textHeight = (int) (lm.getAscent() + lm.getDescent());
-				 
-				rectX = ((Stanje) value).getTekstX() - 5; 
+
+				rectX = ((Stanje) value).getTekstX() - 5;
 				rectY = ((Stanje) value).getTesktY() - textHeight;
-				rectW = textWidth + 50; 
+				rectW = textWidth + 50;
 				rectH = textHeight * 2;
-				 
+
 				MyRectangle elem = new MyRectangle(new Point2D.Double(rectX, rectY), new Dimension(rectW, rectH));
-				
+
 				MyRectPainter p = new MyRectPainter(elem);
-				
+
 				p.paint(g2);
 				addElementPainters(p);
-				
+
 				((Stanje) value).setPravougaonik((Rectangle2D) p.shape);
 				g2.setColor(Color.BLUE);
 				g2.fill(p.shape);
 				g2.setColor(Color.RED);
-				g2.drawString(((Stanje) value).getDisplayName(), ((Stanje) value).getTekstX(), ((Stanje) value).getTesktY());
+				g2.drawString(((Stanje) value).getDisplayName(), ((Stanje) value).getTekstX(),
+						((Stanje) value).getTesktY());
 			}
 		}
 	}
