@@ -97,7 +97,7 @@ public class Aplikacija extends Observable {
 		}
 
 		setChanged();
-		notifyObservers();
+		notifyObservers(TipNotifikacije.promenaRadnePovrsine);
 	}
 
 	public void dodajNovuTranziciju(TipDokumenta dokument, Stanje polazno, Stanje odredisno) {
@@ -142,7 +142,7 @@ public class Aplikacija extends Observable {
 		}
 
 		setChanged();
-		notifyObservers();
+		notifyObservers(TipNotifikacije.promenaRadnePovrsine);
 	}
 
 	public void obrisiStanje(Stanje stanje, TipDokumenta dokument) {
@@ -182,7 +182,7 @@ public class Aplikacija extends Observable {
 		}
 
 		setChanged();
-		notifyObservers();
+		notifyObservers(TipNotifikacije.promenaRadnePovrsine);
 	}
 
 	public void obrisiTranziciju(Tranzicija tranzicija, TipDokumenta dokument) {
@@ -210,13 +210,13 @@ public class Aplikacija extends Observable {
 		}
 
 		setChanged();
-		notifyObservers();
+		notifyObservers(TipNotifikacije.promenaRadnePovrsine);
 	}
 
-	public void otvoriProzorZaIzmenuStanja() {
-	}
-
-	public void otvoriProzorZaIzmenuTranzicije() {
+	public void otvoriProzorZaIzmenu(ElementDokumenta element){
+		setChanged();
+		notifyObservers(element);
+		
 	}
 
 	public void izmeniZoomFactor(int zaKoliko) {
