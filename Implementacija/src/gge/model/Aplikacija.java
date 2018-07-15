@@ -213,10 +213,10 @@ public class Aplikacija extends Observable {
 		notifyObservers(TipNotifikacije.promenaRadnePovrsine);
 	}
 
-	public void otvoriProzorZaIzmenu(ElementDokumenta element){
+	public void otvoriProzorZaIzmenu(ElementDokumenta element) {
 		setChanged();
 		notifyObservers(element);
-		
+
 	}
 
 	public void izmeniZoomFactor(int zaKoliko) {
@@ -270,6 +270,10 @@ public class Aplikacija extends Observable {
 
 	public void setSwitchRequest(Dokument switchRequest) {
 		this.switchRequest = switchRequest;
+	}
+
+	public int getZoomFactor() {
+		return zoomFactor;
 	}
 
 }
