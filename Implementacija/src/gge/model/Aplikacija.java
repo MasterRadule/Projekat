@@ -75,6 +75,7 @@ public class Aplikacija extends Observable {
 	public void dodajNovoStanje(TipDokumenta dokument, int tekstX, int tekstY) {
 		Stanje novoStanje = new Stanje();
 		novoStanje.setDisplayName("State" + this.counter);
+		novoStanje.setLifecycleName("State" + this.counter);
 		novoStanje.setEntityID(Integer.toString(this.counter));
 		this.counter++;
 
@@ -106,6 +107,7 @@ public class Aplikacija extends Observable {
 		novaTranzicija.setOdredisnoStanje(odredisno);
 
 		novaTranzicija.setEntityID(Integer.toString(this.counter));
+		novaTranzicija.setLifecycleName(polazno.getDisplayName() + " to " + odredisno.getDisplayName());
 		this.counter++;
 
 		Line2D linija = new Line2D.Double();
@@ -240,6 +242,11 @@ public class Aplikacija extends Observable {
 	public void nePostojeIzmene() {
 	}
 
+	public void notifyAllObservers(Object arg){
+		setChanged();
+		notifyObservers(arg);
+	}
+	
 	public StanjeAplikacije getCurrentState() {
 		return currentState;
 	}

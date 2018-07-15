@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -17,11 +19,15 @@ import javax.swing.JToolBar;
 import javax.swing.border.LineBorder;
 
 import gge.model.Aplikacija;
+import gge.model.ElementDokumenta;
 import gge.model.Pregled;
+import gge.model.Stanje;
 import gge.model.TipDokumenta;
+import gge.model.TipNotifikacije;
+import gge.view.ProzorIzmene;
 import gge.view.Viewer;
 
-public class MainFrame extends JFrame{
+public class MainFrame extends JFrame implements Observer{
 	
 	private static MainFrame instance = null;
 	private MyMenu myMenu = new MyMenu();
@@ -30,15 +36,24 @@ public class MainFrame extends JFrame{
 	private String activeButton;
 	private Boolean selected; 
 	private ArrayList<JButton> buttons;
+	private Viewer accessPermit;
+	private Viewer switchOrder;
+	private Viewer switchRequest;
+	private Aplikacija model;
 	
-	public MainFrame(){
+	public MainFrame(Aplikacija model){
 		selected = false;
 		buttons = new ArrayList<JButton>();
+		this.model = model;
+		
+		// metoda da se view prijavi modelu da hoce da slusa izmene
+		model.addObserver(this);
 	}
 	
 	public static MainFrame getInstance() {
 		if (instance == null) {
-			instance = new MainFrame();
+			instance = new MainFrame(Aplikacija.getInstance());
+			Aplikacija.getInstance().addObserver(instance);
 			instance.initGUI();
 		}
 		return instance;
@@ -52,10 +67,14 @@ public class MainFrame extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Aplikacija");
 		
+		accessPermit = new Viewer(this, Aplikacija.getInstance(), TipDokumenta.AccessPermit);
+		switchOrder =  new Viewer(this, Aplikacija.getInstance(), TipDokumenta.SwitchOrder);
+		switchRequest = new Viewer(this, Aplikacija.getInstance(), TipDokumenta.SwitchRequest);
+		
 		tabbedPane = new JTabbedPane();
-		tabbedPane.addTab("AccessPermit", new Viewer(Aplikacija.getInstance(), TipDokumenta.AccessPermit));
-		tabbedPane.addTab("SwitchOrder", new Viewer(Aplikacija.getInstance(), TipDokumenta.SwitchOrder));
-		tabbedPane.addTab("SwitchRequest", new Viewer(Aplikacija.getInstance(), TipDokumenta.SwitchRequest));
+		tabbedPane.addTab("AccessPermit", accessPermit);
+		tabbedPane.addTab("SwitchOrder", switchOrder);
+		tabbedPane.addTab("SwitchRequest", switchRequest);
 		tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 		tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
 		tabbedPane.setMnemonicAt(2, KeyEvent.VK_2);
@@ -181,6 +200,37 @@ public class MainFrame extends JFrame{
 
 	public void setTabbedPane(JTabbedPane tabbedPane) {
 		this.tabbedPane = tabbedPane;
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		
+		if(arg instanceof TipNotifikacije){
+			TipNotifikacije notifikacija = (TipNotifikacije) arg;
+			switch (notifikacija) {
+			case promenaRadnePovrsine:
+				accessPermit.repaint();
+				switchOrder.repaint();
+				switchRequest.repaint();
+				break;
+			default:
+				break;
+			}
+		}
+		else if(arg instanceof ElementDokumenta){
+			ElementDokumenta element = (ElementDokumenta) arg;
+			ProzorIzmene prozorIzmene = new ProzorIzmene(this, element);
+			if(prozorIzmene.isConfirmed()){
+				element.setEntityID(prozorIzmene.getEntityID());
+				element.setLifecycleName(prozorIzmene.getLifecycleName());
+				if(element instanceof Stanje){
+					((Stanje) element).setDisplayName(prozorIzmene.getDisplayName());
+					Aplikacija.getInstance().notifyAllObservers(TipNotifikacije.promenaRadnePovrsine);
+				}
+			}
+		}
+		
+		
 	}
 
 }

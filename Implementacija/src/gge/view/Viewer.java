@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Shape;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.font.FontRenderContext;
@@ -19,32 +18,34 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import gge.model.Aplikacija;
 import gge.model.Dokument;
+import gge.model.ElementDokumenta;
 import gge.model.GraphElement;
 import gge.model.MyRectangle;
 import gge.model.Stanje;
 import gge.model.TipDokumenta;
+import gge.model.TipNotifikacije;
 import gge.model.Tranzicija;
 
 @SuppressWarnings("serial")
-public class Viewer extends JPanel implements Observer {
+public class Viewer extends JPanel{
 	protected Aplikacija model;
 	protected TipDokumenta dokument;
 	protected Map<GraphElement, ElementPainter> elementPainters;
-
-	public Viewer(Aplikacija model, TipDokumenta dok) {
-		// TODO: implement
+	protected JFrame parent;
+	
+	public Viewer(JFrame parent, Aplikacija model, TipDokumenta dok) {
+		this.parent = parent;
 		this.dokument = dok;
 		this.model = model;
 		elementPainters = new HashMap<GraphElement, ElementPainter>();
 		Controller controler = new Controller();
 		addMouseListener(controler); // view je panel, i prosledimo mu kontroler
 
-		// metoda da se view prijavi modelu da hoce da slusa izmene
-		model.addObserver(this);
 	}
 
 	/**
@@ -217,11 +218,6 @@ public class Viewer extends JPanel implements Observer {
 
 	}
 
-	@Override
-	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		repaint();
-	}
 
 	public TipDokumenta getDokument() {
 		return dokument;
