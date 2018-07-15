@@ -1,19 +1,18 @@
 package modelTest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
 
-import org.hamcrest.core.IsInstanceOf;
 import org.junit.Test;
 
 import gge.model.Aplikacija;
+import gge.model.Brisanje;
 import gge.model.CrtanjeStanja;
 import gge.model.Dokument;
 import gge.model.ElementDokumenta;
 import gge.model.Pregled;
 import gge.model.Stanje;
-import gge.model.StanjeAplikacije;
 import gge.model.TipDokumenta;
 import gge.model.Tranzicija;
 
@@ -56,5 +55,19 @@ public class AplikacijaTest {
 		CrtanjeStanja novoStanje = new CrtanjeStanja();
 		Aplikacija.getInstance().promeniStanje(novoStanje);
 		assertTrue(Aplikacija.getInstance().getCurrentState() instanceof CrtanjeStanja);
+	}
+	
+	@Test
+	public void testKliknutoNaZnakBrisanja() {
+		Aplikacija.getInstance().promeniStanje(new Pregled());
+		Aplikacija.getInstance().kliknutoNaZnakBrisanja();
+		assertTrue(Aplikacija.getInstance().getCurrentState() instanceof Brisanje);
+	}
+	
+	@Test
+	public void testKliknutoNaZnakPregleda() {
+		Aplikacija.getInstance().promeniStanje(new Brisanje());
+		Aplikacija.getInstance().kliknutoNaZnakPregleda();
+		assertTrue(Aplikacija.getInstance().getCurrentState() instanceof Pregled);
 	}
 }
