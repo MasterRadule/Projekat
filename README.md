@@ -1,10 +1,7 @@
 # Projekat
-Projekat iz predmeta Specifikacija i modeliranje softvera.
+Project for course "Software Specification and Modeling" at Faculty of Technical Sciences, University of Novi Sad.
 
-Članovi tima:
-
-	Aleksandar Nedaković SW21/2016
-  
-	Dragan Ćulibrk SW22/2016
-  
-	Danijel Radulović SW23/2016
+Team members:
+- Danijel Radulović
+- Dragan Ćulibrk - https://github.com/draganculibrk9
+- Aleksandar Nedaković - https://github.com/aleksaleks123
